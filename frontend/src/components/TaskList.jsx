@@ -1,5 +1,3 @@
-// frontend/src/components/TaskList.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TaskItem from './TaskItem';
@@ -9,13 +7,12 @@ import TaskForm from './TaskForm';
 const API_URL = 'http://127.0.0.1:8000/api/tasks/';
 
 const TaskList = () => {
-  // --- State Initialization ---
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
 
-  // --- R: Read/Fetch Logic (Already Working) ---
+  // R: Read/Fetch Logic (Already Working)
   const fetchTasks = async () => {
     setLoading(true);
     setError(null); 
@@ -30,10 +27,10 @@ const TaskList = () => {
     }
   };
 
-  // --- C & U: Create or Update Logic ---
+  // Create or Update Logic
   const handleTaskSubmit = async (taskData) => {
     if (taskData.id) {
-      // **U: UPDATE (PUT Request)**
+      // UPDATE (PUT Request)
       try {
         // Send ALL task data for a PUT request
         const response = await axios.put(`${API_URL}${taskData.id}/`, taskData);
@@ -44,7 +41,7 @@ const TaskList = () => {
         console.error("Error updating task:", error);
       }
     } else {
-      // **C: CREATE (POST Request)**
+      // CREATE (POST Request)
       try {
         // Send new task data (title, description)
         const response = await axios.post(API_URL, taskData);
@@ -56,7 +53,7 @@ const TaskList = () => {
     }
   };
   
-  // --- U: Toggle Completion Logic (PATCH Request) ---
+  // Toggle Completion Logic (PATCH Request)
   const handleToggle = async (id, newCompletedStatus) => {
     try {
       // Send a PATCH request with only the field to be changed
@@ -71,7 +68,7 @@ const TaskList = () => {
     }
   };
 
-  // --- D: Delete Logic ---
+  // Delete Logic
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request (no data body needed)
@@ -84,7 +81,7 @@ const TaskList = () => {
     }
   };
   
-  // --- Edit Mode Handlers ---
+  // Edit Mode Handlers
   const startEditing = (task) => {
     setEditingTask(task);
   };
@@ -93,12 +90,12 @@ const TaskList = () => {
     setEditingTask(null);
   };
 
-  // --- Lifecycle Hook ---
+  //Lifecycle Hook
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  // --- Conditional Rendering for Loading and Error ---
+  //Rendering for Loading and Error
   if (loading) {
     return <div style={{ padding: '20px', textAlign: 'center' }}><h2>⏳ Loading tasks...</h2></div>;
   }
@@ -113,7 +110,7 @@ const TaskList = () => {
     );
   }
 
-  // --- Main Render ---
+  //Main Render
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
       <h1>Django REST Task Manager</h1>
