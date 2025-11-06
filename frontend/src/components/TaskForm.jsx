@@ -1,14 +1,11 @@
-// frontend/src/components/TaskForm.jsx
 import React, { useState, useEffect } from 'react';
 
 const TaskForm = ({ onTaskSubmit, editingTask, onCancelEdit }) => {
   // 1. Local State Initialization
-  // Initialize state based on whether 'editingTask' is provided
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   // 2. useEffect for Edit Mode Initialization
-  // This hook runs whenever 'editingTask' changes (i.e., when 'Edit' is clicked or canceled)
   useEffect(() => {
     if (editingTask) {
       // Load existing task data into the form fields
@@ -19,7 +16,7 @@ const TaskForm = ({ onTaskSubmit, editingTask, onCancelEdit }) => {
       setTitle('');
       setDescription('');
     }
-  }, [editingTask]); // Dependency array ensures it runs when editingTask prop changes
+  }, [editingTask]);
 
   // 3. Form Submission Handler
   const handleSubmit = (e) => {
